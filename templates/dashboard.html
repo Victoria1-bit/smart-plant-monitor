@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="10">
+    <title>Plant Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <h1>Plant Monitor</h1>
+    <p class="note">Simulated data. No sensor connected yet.</p>
+
+    <div class="current">
+        <p class="label">Soil moisture</p>
+        <p class="value">{{ reading.moisture }}%</p>
+        <p class="status {{ reading.status | lower }}">{{ reading.status }}</p>
+    </div>
+
+    <h2>Recent readings</h2>
+    <table>
+        <tr>
+            <th>Time</th>
+            <th>Moisture</th>
+            <th>Status</th>
+        </tr>
+        {% for r in readings %}
+        <tr>
+            <td>{{ r.time }}</td>
+            <td>{{ r.moisture }}%</td>
+            <td class="status {{ r.status | lower }}">{{ r.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p class="note">Dry is below 30%, normal is 30-70%, wet is above 70%.</p>
+</body>
+</html>

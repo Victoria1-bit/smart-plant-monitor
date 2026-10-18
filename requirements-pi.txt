@@ -1,5 +1,0 @@
-# Extra packages needed ONLY on the Raspberry Pi 5 (not on a laptop).
-# gpiozero and lgpio are usually already installed on Raspberry Pi OS.
--r requirements.txt
-gpiozero
-lgpio
