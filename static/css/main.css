@@ -1,0 +1,102 @@
+/* Simple styles for the Smart Plant Monitor dashboard */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f4f7f2;
+    color: #222;
+}
+
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 16px 24px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header p {
+    margin: 4px 0 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    padding: 16px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.banner-simulated {
+    background-color: #fff3cd;
+    border: 1px solid #e0b100;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.big-number {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.small {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Coloured left border depending on the plant status */
+.status-dry    { border-left: 8px solid #d84315; }
+.status-normal { border-left: 8px solid #2e7d32; }
+.status-wet    { border-left: 8px solid #1565c0; }
+
+.meter {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 16px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    background-color: #4caf50;
+    height: 100%;
+}
+
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+}
+
+.tag.dry    { background-color: #d84315; }
+.tag.normal { background-color: #2e7d32; }
+.tag.wet    { background-color: #1565c0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+}
