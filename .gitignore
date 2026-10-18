@@ -1,0 +1,30 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Secrets and credentials - never commit these
+.env
+*.pem
+*.key
+*.crt
+credentials*
+secrets*
+aws-credentials*
+
+# Local database files
+*.db
+*.sqlite3
+
+# Editors and macOS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
