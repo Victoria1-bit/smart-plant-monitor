@@ -61,7 +61,7 @@ def auto_water_if_dry(reading):
 
 @app.get("/", include_in_schema=False)
 def home(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html", {"active": "dashboard"})
+    return templates.TemplateResponse(request, "dashboard.html", {"active": "dashboard", "max_seconds": MAX_SECONDS})
 
 
 @app.get("/api/reading")
@@ -175,3 +175,10 @@ def history_page(request: Request):
 @app.get("/watering", include_in_schema=False)
 def watering_page(request: Request):
     return templates.TemplateResponse(request, "watering.html", {"active": "watering"})
+
+
+@app.get("/settings", include_in_schema=False)
+def settings_page(request: Request):
+    return templates.TemplateResponse(
+        request, "settings.html", {"active": "settings", "max_seconds": MAX_SECONDS}
+    )
