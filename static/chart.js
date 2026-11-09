@@ -54,7 +54,7 @@ function drawMoistureChart(container, readings, dryLevel, wetLevel) {
     // Shaded areas for dry and wet soil, always named so colour is not the only clue
     svgElement("rect", { x: margin.left, y: y(dryLevel), width: plotWidth, height: y(0) - y(dryLevel), class: "band-dry" }, svg);
     svgElement("rect", { x: margin.left, y: y(100), width: plotWidth, height: y(wetLevel) - y(100), class: "band-wet" }, svg);
-    svgElement("text", { x: margin.left + 8, y: y(dryLevel) + 16, class: "band-label" }, svg).textContent = "Dry";
+    svgElement("text", { x: margin.left + 8, y: y(0) - 8, class: "band-label" }, svg).textContent = "Dry, light on";
     svgElement("text", { x: margin.left + 8, y: y(100) + 16, class: "band-label" }, svg).textContent = "Wet";
 
     // Moisture axis
