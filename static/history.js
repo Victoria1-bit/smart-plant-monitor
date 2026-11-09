@@ -51,6 +51,20 @@ async function loadHistory() {
     }
 }
 
+function downloadCsv() {
+    const lines = ["timestamp,moisture,status,simulated"];
+    for (const r of filteredReadings()) {
+        lines.push(`${r.timestamp},${r.moisture},${r.status},${r.simulated}`);
+    }
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/csv" }));
+    link.download = "plant-moisture.csv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+document.getElementById("download").addEventListener("click", downloadCsv);
 document.getElementById("range").addEventListener("change", loadHistory);
 document.getElementById("status-filter").addEventListener("change", () => showTable(filteredReadings()));
 
