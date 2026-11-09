@@ -7,28 +7,24 @@
 
     <div class="current">
         <p class="label">Soil moisture</p>
-        <p class="value">{{ reading.moisture }}%</p>
-        <p class="status {{ reading.status | lower }}">{{ reading.status }}</p>
+        <p class="value"><span id="moisture">--</span>%</p>
+        <p class="status" id="status">Loading</p>
+        <p class="note">Last reading: <span id="last-reading">--</span></p>
     </div>
+
+    <p class="message" id="page-message" role="status"></p>
 
     <h2>Recent readings</h2>
     <table>
-        <tr>
-            <th>Time</th>
-            <th>Moisture</th>
-            <th>Status</th>
-        </tr>
-        {% for r in readings %}
-        <tr>
-            <td>{{ r.time }}</td>
-            <td>{{ r.moisture }}%</td>
-            <td class="status {{ r.status | lower }}">{{ r.status }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr><th>Time</th><th>Moisture</th><th>Status</th></tr>
+        </thead>
+        <tbody id="recent-readings"></tbody>
     </table>
 
-    <p class="note">Dry is below 30%, normal is 30-70%, wet is above 70%.</p>
+    <p class="note" id="levels-note"></p>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ url_for('static', path='dashboard.js') }}"></script>
 {% endblock %}

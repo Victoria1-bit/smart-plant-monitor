@@ -61,10 +61,7 @@ def auto_water_if_dry(reading):
 
 @app.get("/", include_in_schema=False)
 def home(request: Request):
-    reading = take_reading()
-    return templates.TemplateResponse(
-        request, "dashboard.html", {"active": "dashboard", "reading": reading, "readings": readings[:10]}
-    )
+    return templates.TemplateResponse(request, "dashboard.html", {"active": "dashboard"})
 
 
 @app.get("/api/reading")
