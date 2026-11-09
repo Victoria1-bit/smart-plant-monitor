@@ -20,6 +20,11 @@ function showTable(rows) {
     }
 }
 
+function filteredReadings() {
+    const status = document.getElementById("status-filter").value;
+    return status ? readings.filter((r) => r.status === status) : readings;
+}
+
 async function loadHistory() {
     const message = document.getElementById("page-message");
     try {
@@ -27,7 +32,7 @@ async function loadHistory() {
         const hours = document.getElementById("range").value;
         readings = await callApi(`/api/readings?hours=${hours}`);
         drawChart();
-        showTable(readings);
+        showTable(filteredReadings());
         showMessage(message, "");
     } catch (error) {
         showMessage(message, error.message, true);
@@ -35,6 +40,7 @@ async function loadHistory() {
 }
 
 document.getElementById("range").addEventListener("change", loadHistory);
+document.getElementById("status-filter").addEventListener("change", () => showTable(filteredReadings()));
 
 loadHistory();
 redrawOnResize(drawChart);
