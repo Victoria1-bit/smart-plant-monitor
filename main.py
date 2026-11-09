@@ -170,3 +170,8 @@ def login():
 @app.get("/history", include_in_schema=False)
 def history_page(request: Request):
     return templates.TemplateResponse(request, "history.html", {"active": "history"})
+
+
+@app.get("/watering", include_in_schema=False)
+def watering_page(request: Request):
+    return templates.TemplateResponse(request, "watering.html", {"active": "watering"})
