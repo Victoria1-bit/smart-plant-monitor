@@ -19,6 +19,12 @@ function showCurrent(data) {
 
     document.getElementById("last-reading").textContent = formatDateTime(reading.timestamp);
 
+    const lightOn = data.light === "On";
+    document.getElementById("light-text").textContent = lightOn ? "On: the soil is dry" : "Off: the soil has enough water";
+    document.getElementById("light-dot").classList.toggle("on", lightOn);
+    document.getElementById("light-note").textContent =
+        `The light comes on when moisture is below ${data.settings.dry_threshold}%.`;
+
     const levels = data.settings;
     document.getElementById("levels-note").textContent =
         `Dry is below ${levels.dry_threshold}%, wet is above ${levels.wet_threshold}%.`;

@@ -20,6 +20,7 @@
     --burgundy-soft: #f3e5e7;
     --teal-soft: #e2eeea;
     --blue: #1f5fa8;
+    --light-on: #e6b325;
     --radius-card: 1.5rem;
     --radius-input: 0.85rem;
 }
@@ -364,4 +365,24 @@ select:focus-visible {
     top: 8px;
     background: var(--surface);
     padding: 4px 8px;
+}
+
+.light-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.light-dot {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: var(--field);
+}
+
+.light-dot.on {
+    border-color: var(--forest);
+    background: var(--light-on);
 }
