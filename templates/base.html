@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Plant Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/">Plant Monitor</a>
+        <nav aria-label="Main">
+            <a href="/" {% if active == "dashboard" %}aria-current="page"{% endif %}>Dashboard</a>
+        </nav>
+    </header>
+
+    <p class="sim-note">Simulated data. No sensor or pump is connected yet.</p>
+
+    <main>
+{% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

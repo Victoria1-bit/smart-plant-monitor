@@ -63,7 +63,7 @@ def auto_water_if_dry(reading):
 def home(request: Request):
     reading = take_reading()
     return templates.TemplateResponse(
-        request, "dashboard.html", {"reading": reading, "readings": readings[:10]}
+        request, "dashboard.html", {"active": "dashboard", "reading": reading, "readings": readings[:10]}
     )
 
 
