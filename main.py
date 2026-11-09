@@ -46,7 +46,17 @@ def take_reading():
     )
     readings.insert(0, reading)
     del readings[MAX_READINGS:]
+    auto_water_if_dry(reading)
     return reading
+
+
+def auto_water_if_dry(reading):
+    # Use the same safeguards as manual watering
+    if not settings["auto_water"] or reading["moisture"] >= settings["dry_threshold"]:
+        return
+    minutes = minutes_since_last_watering()
+    if minutes is None or minutes >= settings["cooldown_minutes"]:
+        record_watering(settings["water_seconds"], "Automatic")
 
 
 @app.get("/", include_in_schema=False)
