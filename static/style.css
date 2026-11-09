@@ -230,27 +230,44 @@ td {
 
 input,
 select {
-    padding: 6px;
+    min-height: 44px;
+    padding: 6px 12px;
+    box-sizing: border-box;
     font: inherit;
+    color: var(--forest);
+    background: var(--field);
     border: 1px solid var(--border);
+    border-radius: var(--radius-input);
+}
+
+input[type="checkbox"] {
+    min-height: 0;
+    accent-color: var(--forest);
 }
 
 .inline-form input {
-    width: 64px;
+    width: 76px;
 }
 
 button {
-    padding: 7px 14px;
+    min-height: 44px;
+    padding: 8px 18px;
     font: inherit;
+    font-weight: 600;
     color: var(--field);
-    background: var(--focus);
-    border: 1px solid var(--focus);
+    background: var(--forest);
+    border: 1px solid var(--forest);
+    border-radius: var(--radius-input);
     cursor: pointer;
 }
 
+button:hover {
+    background: var(--forest-hover);
+}
+
 button:disabled {
-    background: var(--border);
-    border-color: var(--border);
+    background: var(--muted);
+    border-color: var(--muted);
     cursor: default;
 }
 
@@ -278,8 +295,7 @@ button:disabled {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
-    max-width: 320px;
-    margin-top: 16px;
+    max-width: 360px;
 }
 
 .form input:not([type="checkbox"]) {
