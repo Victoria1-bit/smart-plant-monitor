@@ -42,11 +42,15 @@ async function loadDashboard() {
     try {
         const data = await callApi("/api/status");
         const readings = await callApi("/api/readings?limit=10");
-        chartReadings = await callApi("/api/readings?hours=24");
+        const newChartData = await callApi("/api/readings?hours=24");
+        const changed = JSON.stringify([newChartData, data.settings]) !== JSON.stringify([chartReadings, chartLevels]);
+        chartReadings = newChartData;
         chartLevels = data.settings;
         showCurrent(data);
         showRecent(readings);
-        drawChart();
+        if (changed) {
+            drawChart();
+        }
         showMessage(message, "");
     } catch (error) {
         showMessage(message, error.message, true);
