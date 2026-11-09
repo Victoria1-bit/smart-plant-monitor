@@ -165,3 +165,8 @@ def get_watering():
 def login():
     # The login form is ready but real accounts are not built yet
     raise HTTPException(501, "Sign in is not connected yet. Accounts will be added with the database.")
+
+
+@app.get("/history", include_in_schema=False)
+def history_page(request: Request):
+    return templates.TemplateResponse(request, "history.html", {"active": "history"})
