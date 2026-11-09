@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -37,5 +39,9 @@ def get_reading():
 
 
 @app.get("/api/readings")
-def get_readings():
-    return readings[:10]
+def get_readings(hours: int | None = None, limit: int = 10):
+    # Return readings from the last few hours, or just the latest few
+    if hours is None:
+        return readings[:limit]
+    cutoff = datetime.now() - timedelta(hours=hours)
+    return [r for r in readings if datetime.fromisoformat(r["timestamp"]) >= cutoff]
