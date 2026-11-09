@@ -34,11 +34,11 @@ def read_real_sensor():
     return round(percent)
 
 
-def get_status(moisture):
+def get_status(moisture, dry_threshold=30, wet_threshold=70):
     # Turn a moisture percentage into dry, normal or wet
-    if moisture < 30:
+    if moisture < dry_threshold:
         return "Dry"
-    elif moisture > 70:
+    elif moisture > wet_threshold:
         return "Wet"
     else:
         return "Normal"
