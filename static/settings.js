@@ -1,6 +1,6 @@
-// Loads and saves the watering settings.
+// Loads and saves the moisture levels.
 
-const NUMBER_FIELDS = ["dry_threshold", "wet_threshold", "water_seconds", "cooldown_minutes"];
+const NUMBER_FIELDS = ["dry_threshold", "wet_threshold"];
 const form = document.getElementById("settings-form");
 const message = document.getElementById("settings-message");
 
@@ -10,7 +10,6 @@ async function loadSettings() {
         for (const field of NUMBER_FIELDS) {
             document.getElementById(field).value = settings[field];
         }
-        document.getElementById("auto_water").checked = settings.auto_water;
     } catch (error) {
         showMessage(message, error.message, true);
     }
@@ -19,7 +18,7 @@ async function loadSettings() {
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const values = { auto_water: document.getElementById("auto_water").checked };
+    const values = {};
     for (const field of NUMBER_FIELDS) {
         values[field] = Number(document.getElementById(field).value);
     }

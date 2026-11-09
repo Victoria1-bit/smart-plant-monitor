@@ -13,14 +13,6 @@
         <label for="wet_threshold">Wet above (%)</label>
         <input id="wet_threshold" type="number" min="40" max="95" required>
 
-        <label for="water_seconds">Watering time (seconds)</label>
-        <input id="water_seconds" type="number" min="1" max="{{ max_seconds }}" required>
-
-        <label for="cooldown_minutes">Wait between waterings (minutes)</label>
-        <input id="cooldown_minutes" type="number" min="1" max="1440" required>
-
-        <label class="checkbox"><input id="auto_water" type="checkbox"> Water automatically when dry</label>
-
         <button type="submit">Save settings</button>
     </form>
     <p class="message" id="settings-message" role="status"></p>

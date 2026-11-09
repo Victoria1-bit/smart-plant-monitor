@@ -248,11 +248,6 @@ select {
     border-radius: var(--radius-input);
 }
 
-input[type="checkbox"] {
-    min-height: 0;
-    accent-color: var(--forest);
-}
-
 button {
     min-height: 44px;
     padding: 8px 18px;
@@ -302,15 +297,12 @@ button:disabled {
     max-width: 360px;
 }
 
-.form input:not([type="checkbox"]) {
+.form input {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
 
-.checkbox {
-    margin: 4px 0 12px;
-}
 
 @media (max-width: 700px) {
     main {
