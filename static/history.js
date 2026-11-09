@@ -20,6 +20,17 @@ function showTable(rows) {
     }
 }
 
+function showSummary() {
+    const values = readings.map((r) => r.moisture);
+    const summary = document.getElementById("summary");
+    if (values.length === 0) {
+        summary.textContent = "No readings in this time range.";
+        return;
+    }
+    const average = Math.round(values.reduce((total, value) => total + value, 0) / values.length);
+    summary.textContent = `Lowest ${Math.min(...values)}%, highest ${Math.max(...values)}%, average ${average}%.`;
+}
+
 function filteredReadings() {
     const status = document.getElementById("status-filter").value;
     return status ? readings.filter((r) => r.status === status) : readings;
@@ -32,6 +43,7 @@ async function loadHistory() {
         const hours = document.getElementById("range").value;
         readings = await callApi(`/api/readings?hours=${hours}`);
         drawChart();
+        showSummary();
         showTable(filteredReadings());
         showMessage(message, "");
     } catch (error) {
