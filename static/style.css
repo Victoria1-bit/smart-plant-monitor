@@ -5,11 +5,30 @@
     font-display: swap;
 }
 
+/* Colours and sizes used across the site, so they are changed in one place. */
+:root {
+    --background: #e3e9df;
+    --surface: #f7f6ef;
+    --field: #fcfcf7;
+    --panel-border: #d2dcd0;
+    --border: #b8c3b5;
+    --forest: #183e32;
+    --forest-hover: #102d24;
+    --muted: #5e6e63;
+    --focus: #386d52;
+    --burgundy: #743b4b;
+    --burgundy-soft: #f3e5e7;
+    --teal-soft: #e2eeea;
+    --blue: #1f5fa8;
+    --radius-card: 1.5rem;
+    --radius-input: 0.85rem;
+}
+
 body {
     font-family: "Space Grotesk", system-ui, sans-serif;
     margin: 0;
-    color: #222;
-    background: #fff;
+    color: var(--forest);
+    background: var(--background);
     line-height: 1.5;
 }
 
@@ -26,23 +45,23 @@ main {
     max-width: 900px;
     margin: 0 auto;
     padding: 16px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--panel-border);
 }
 
 .brand {
     font-size: 20px;
     font-weight: bold;
-    color: #222;
+    color: var(--forest);
     text-decoration: none;
 }
 
 nav a {
     margin-left: 20px;
-    color: #444;
+    color: var(--muted);
 }
 
 nav a[aria-current="page"] {
-    color: #222;
+    color: var(--forest);
     font-weight: bold;
     text-decoration: none;
 }
@@ -51,7 +70,7 @@ nav a[aria-current="page"] {
     max-width: 900px;
     margin: 0 auto;
     padding: 8px 16px;
-    color: #666;
+    color: var(--muted);
     font-size: 14px;
 }
 
@@ -66,19 +85,19 @@ h2 {
 }
 
 .note {
-    color: #666;
+    color: var(--muted);
     font-size: 14px;
 }
 
 .current {
-    border: 1px solid #ddd;
+    border: 1px solid var(--panel-border);
     padding: 16px;
     margin-top: 16px;
 }
 
 .label {
     margin: 0;
-    color: #666;
+    color: var(--muted);
 }
 
 .value {
@@ -92,15 +111,15 @@ h2 {
 }
 
 .dry {
-    color: #b23b1e;
+    color: var(--burgundy);
 }
 
 .normal {
-    color: #2f7a35;
+    color: var(--focus);
 }
 
 .wet {
-    color: #1f5fa8;
+    color: var(--blue);
 }
 
 table {
@@ -112,7 +131,7 @@ th,
 td {
     text-align: left;
     padding: 6px 8px 6px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--panel-border);
 }
 
 .message {
@@ -121,7 +140,7 @@ td {
 }
 
 .message.error {
-    color: #b23b1e;
+    color: var(--burgundy);
 }
 
 .chart {
@@ -133,57 +152,57 @@ td {
 }
 
 .band-dry {
-    fill: #f8ece8;
+    fill: var(--burgundy-soft);
 }
 
 .band-wet {
-    fill: #e9f0f8;
+    fill: var(--teal-soft);
 }
 
 .band-label {
-    fill: #666;
+    fill: var(--muted);
     font-size: 12px;
 }
 
 .grid {
-    stroke: #eee;
+    stroke: var(--panel-border);
 }
 
 .axis {
-    fill: #666;
+    fill: var(--muted);
     font-size: 12px;
 }
 
 .moisture-line {
     fill: none;
-    stroke: #37474f;
+    stroke: var(--forest);
     stroke-width: 2;
     stroke-linejoin: round;
     stroke-linecap: round;
 }
 
 .latest-point {
-    fill: #37474f;
-    stroke: #fff;
+    fill: var(--forest);
+    stroke: var(--surface);
     stroke-width: 2;
 }
 
 .latest-label {
-    fill: #222;
+    fill: var(--forest);
     font-size: 13px;
     font-weight: bold;
 }
 
 .crosshair {
-    stroke: #999;
+    stroke: var(--border);
 }
 
 .tooltip {
     position: absolute;
     top: 0;
     padding: 4px 8px;
-    background: #222;
-    color: #fff;
+    background: var(--forest);
+    color: var(--field);
     font-size: 13px;
     white-space: nowrap;
     pointer-events: none;
@@ -199,7 +218,7 @@ input,
 select {
     padding: 6px;
     font: inherit;
-    border: 1px solid #999;
+    border: 1px solid var(--border);
 }
 
 .inline-form input {
@@ -209,15 +228,15 @@ select {
 button {
     padding: 7px 14px;
     font: inherit;
-    color: #fff;
-    background: #2f7a35;
-    border: 1px solid #2f7a35;
+    color: var(--field);
+    background: var(--focus);
+    border: 1px solid var(--focus);
     cursor: pointer;
 }
 
 button:disabled {
-    background: #999;
-    border-color: #999;
+    background: var(--border);
+    border-color: var(--border);
     cursor: default;
 }
 
@@ -229,7 +248,7 @@ button:disabled {
 .table-scroll th {
     position: sticky;
     top: 0;
-    background: #fff;
+    background: var(--surface);
 }
 
 .filters {
@@ -285,7 +304,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-    outline: 2px solid #1f5fa8;
+    outline: 2px solid var(--blue);
     outline-offset: 2px;
 }
 
@@ -297,6 +316,6 @@ select:focus-visible {
 .skip-link:focus {
     left: 16px;
     top: 8px;
-    background: #fff;
+    background: var(--surface);
     padding: 4px 8px;
 }
