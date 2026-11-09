@@ -19,6 +19,8 @@ function showCurrent(data) {
 
     document.getElementById("last-reading").textContent = formatDateTime(reading.timestamp);
 
+    document.getElementById("auto-water").textContent = data.settings.auto_water ? "On" : "Off";
+
     const levels = data.settings;
     document.getElementById("levels-note").textContent =
         `Dry is below ${levels.dry_threshold}%, wet is above ${levels.wet_threshold}%.`;
@@ -56,3 +58,21 @@ loadDashboard();
 // Keep the page up to date without reloading it
 setInterval(loadDashboard, 10000);
 redrawOnResize(drawChart);
+
+document.getElementById("water-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = document.getElementById("water-button");
+    const message = document.getElementById("water-message");
+    const seconds = Number(document.getElementById("seconds").value);
+
+    button.disabled = true;
+    try {
+        const result = await sendJson("/api/water", "POST", { seconds: seconds });
+        showMessage(message, `Simulated watering for ${result.seconds} seconds. Moisture went from ${result.before}% to ${result.after}%.`);
+        await loadDashboard();
+    } catch (error) {
+        showMessage(message, error.message, true);
+    } finally {
+        button.disabled = false;
+    }
+});
