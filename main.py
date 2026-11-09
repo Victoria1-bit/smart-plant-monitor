@@ -1,9 +1,12 @@
 from datetime import datetime, timedelta
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel, Field
 
+from pump import MAX_SECONDS
+from sensor import get_status
 from simulator import build_history, make_reading, next_moisture
 
 app = FastAPI()
@@ -17,10 +20,30 @@ READING_INTERVAL = 60   # seconds between simulated readings
 # Readings are kept in lists for now, newest first. This will be a database later.
 readings, watering_events = build_history()
 
+settings = {
+    "dry_threshold": 30,
+    "wet_threshold": 70,
+    "water_seconds": 3,
+    "cooldown_minutes": 60,
+    "auto_water": False,
+}
+
+
+class Settings(BaseModel):
+    dry_threshold: int = Field(ge=5, le=60)
+    wet_threshold: int = Field(ge=40, le=95)
+    water_seconds: int = Field(ge=1, le=MAX_SECONDS)
+    cooldown_minutes: int = Field(ge=1, le=1440)
+    auto_water: bool
+
 
 def take_reading():
     # Get a (simulated) reading and save it
-    reading = make_reading(next_moisture(readings[0]["moisture"]))
+    reading = make_reading(
+        next_moisture(readings[0]["moisture"]),
+        dry_threshold=settings["dry_threshold"],
+        wet_threshold=settings["wet_threshold"],
+    )
     readings.insert(0, reading)
     del readings[MAX_READINGS:]
     return reading
@@ -61,4 +84,23 @@ def get_status_summary():
     return {
         "reading": latest_reading(),
         "sensor_connected": False,
+        "settings": settings,
     }
+
+
+@app.get("/api/settings")
+def read_settings():
+    return settings
+
+
+@app.put("/api/settings")
+def update_settings(new_settings: Settings):
+    if new_settings.dry_threshold >= new_settings.wet_threshold:
+        raise HTTPException(400, "The dry level must be lower than the wet level.")
+
+    settings.update(new_settings.model_dump())
+
+    # Saved readings need their status worked out again with the new levels
+    for r in readings:
+        r["status"] = get_status(r["moisture"], settings["dry_threshold"], settings["wet_threshold"])
+    return settings
