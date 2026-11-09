@@ -89,10 +89,24 @@ h2 {
     font-size: 14px;
 }
 
-.current {
-    border: 1px solid var(--panel-border);
-    padding: 16px;
+.panel,
+.current,
+.form {
+    padding: 24px;
     margin-top: 16px;
+    background: var(--surface);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-card);
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+.dashboard-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 .label {

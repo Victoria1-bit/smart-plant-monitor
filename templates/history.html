@@ -25,8 +25,11 @@
 
     <p id="summary"></p>
 
-    <div class="chart" id="chart"></div>
+    <section class="panel">
+        <div class="chart" id="chart"></div>
+    </section>
 
+    <section class="panel">
     <h2>Readings</h2>
     <p><button type="button" id="download">Download CSV</button></p>
     <div class="table-scroll">
@@ -37,6 +40,7 @@
             <tbody id="history-table"></tbody>
         </table>
     </div>
+    </section>
 {% endblock %}
 
 {% block scripts %}
