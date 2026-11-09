@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+    <h1>Sign in</h1>
+    <p class="note">Accounts are not connected yet, so this form can not sign you in.</p>
+
+    <form id="login-form" class="form">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+
+        <button type="submit">Sign in</button>
+    </form>
+    <p class="message" id="login-message" role="status"></p>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', path='login.js') }}"></script>
+{% endblock %}

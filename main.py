@@ -182,3 +182,8 @@ def settings_page(request: Request):
     return templates.TemplateResponse(
         request, "settings.html", {"active": "settings", "max_seconds": MAX_SECONDS}
     )
+
+
+@app.get("/login", include_in_schema=False)
+def login_page(request: Request):
+    return templates.TemplateResponse(request, "login.html", {"active": "login"})
