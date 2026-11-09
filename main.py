@@ -46,17 +46,7 @@ def take_reading():
     )
     readings.insert(0, reading)
     del readings[MAX_READINGS:]
-    auto_water_if_dry(reading)
     return reading
-
-
-def auto_water_if_dry(reading):
-    # Use the same safeguards as manual watering
-    if not settings["auto_water"] or reading["moisture"] >= settings["dry_threshold"]:
-        return
-    minutes = minutes_since_last_watering()
-    if minutes is None or minutes >= settings["cooldown_minutes"]:
-        record_watering(settings["water_seconds"], "Automatic")
 
 
 @app.get("/", include_in_schema=False)
@@ -111,49 +101,6 @@ def update_settings(new_settings: Settings):
     for r in readings:
         r["status"] = get_status(r["moisture"], settings["dry_threshold"], settings["wet_threshold"])
     return settings
-
-
-class WaterRequest(BaseModel):
-    seconds: int = Field(ge=1, le=MAX_SECONDS)
-
-
-def minutes_since_last_watering():
-    if not watering_events:
-        return None
-    last = datetime.fromisoformat(watering_events[0]["timestamp"])
-    return (datetime.now() - last).total_seconds() / 60
-
-
-def record_watering(seconds, trigger):
-    # SIMULATED: this only changes the numbers. It never runs pump.py.
-    # A real pump route must wait until the login is finished.
-    before = readings[0]["moisture"]
-    after = min(100, before + seconds * 4)
-    event = {
-        "timestamp": datetime.now().isoformat(timespec="seconds"),
-        "trigger": trigger,
-        "seconds": seconds,
-        "before": before,
-        "after": after,
-        "simulated": True,
-    }
-    watering_events.insert(0, event)
-    readings.insert(0, make_reading(after, dry_threshold=settings["dry_threshold"],
-                                    wet_threshold=settings["wet_threshold"]))
-    return event
-
-
-@app.post("/api/water")
-def water_now(request: WaterRequest):
-    if readings[0]["moisture"] > settings["wet_threshold"]:
-        raise HTTPException(409, "The soil is already wet, so watering was not started.")
-
-    minutes = minutes_since_last_watering()
-    if minutes is not None and minutes < settings["cooldown_minutes"]:
-        wait = int(settings["cooldown_minutes"] - minutes) + 1
-        raise HTTPException(409, f"Watered recently. Try again in {wait} minutes.")
-
-    return record_watering(request.seconds, "Manual")
 
 
 @app.get("/api/watering")

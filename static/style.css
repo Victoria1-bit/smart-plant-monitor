@@ -236,12 +236,6 @@ td {
     pointer-events: none;
 }
 
-.inline-form {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 input,
 select {
     min-height: 44px;
@@ -257,10 +251,6 @@ select {
 input[type="checkbox"] {
     min-height: 0;
     accent-color: var(--forest);
-}
-
-.inline-form input {
-    width: 76px;
 }
 
 button {

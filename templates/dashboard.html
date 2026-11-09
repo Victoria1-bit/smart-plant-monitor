@@ -13,16 +13,6 @@
             <p class="note">Last reading: <span id="last-reading">--</span></p>
         </section>
 
-        <section class="panel">
-            <h2>Watering</h2>
-            <p>Automatic watering: <strong id="auto-water">--</strong></p>
-            <form id="water-form" class="inline-form">
-                <label for="seconds">Seconds</label>
-                <input id="seconds" type="number" min="1" max="{{ max_seconds }}" value="3" required>
-                <button type="submit" id="water-button">Water now</button>
-            </form>
-            <p class="message" id="water-message" role="status"></p>
-        </section>
     </div>
 
     <p class="message" id="page-message" role="status"></p>
