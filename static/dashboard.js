@@ -1,5 +1,14 @@
 // Fills in the dashboard from the API.
 
+let chartReadings = [];
+let chartLevels = null;
+
+function drawChart() {
+    if (chartLevels) {
+        drawMoistureChart(document.getElementById("chart"), chartReadings, chartLevels.dry_threshold, chartLevels.wet_threshold);
+    }
+}
+
 function showCurrent(data) {
     const reading = data.reading;
     document.getElementById("moisture").textContent = reading.moisture;
@@ -31,8 +40,11 @@ async function loadDashboard() {
     try {
         const data = await callApi("/api/status");
         const readings = await callApi("/api/readings?limit=10");
+        chartReadings = await callApi("/api/readings?hours=24");
+        chartLevels = data.settings;
         showCurrent(data);
         showRecent(readings);
+        drawChart();
         showMessage(message, "");
     } catch (error) {
         showMessage(message, error.message, true);
@@ -43,3 +55,4 @@ loadDashboard();
 
 // Keep the page up to date without reloading it
 setInterval(loadDashboard, 10000);
+redrawOnResize(drawChart);

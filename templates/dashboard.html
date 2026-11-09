@@ -14,6 +14,9 @@
 
     <p class="message" id="page-message" role="status"></p>
 
+    <h2>Soil moisture, last 24 hours</h2>
+    <div class="chart" id="chart"></div>
+
     <h2>Recent readings</h2>
     <table>
         <thead>
@@ -26,5 +29,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ url_for('static', path='chart.js') }}"></script>
     <script src="{{ url_for('static', path='dashboard.js') }}"></script>
 {% endblock %}

@@ -116,3 +116,53 @@ td {
 .message.error {
     color: #b23b1e;
 }
+
+.chart {
+    position: relative;
+}
+
+.chart svg {
+    display: block;
+}
+
+.band-dry {
+    fill: #f8ece8;
+}
+
+.band-wet {
+    fill: #e9f0f8;
+}
+
+.band-label {
+    fill: #666;
+    font-size: 12px;
+}
+
+.grid {
+    stroke: #eee;
+}
+
+.axis {
+    fill: #666;
+    font-size: 12px;
+}
+
+.moisture-line {
+    fill: none;
+    stroke: #37474f;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.latest-point {
+    fill: #37474f;
+    stroke: #fff;
+    stroke-width: 2;
+}
+
+.latest-label {
+    fill: #222;
+    font-size: 13px;
+    font-weight: bold;
+}
