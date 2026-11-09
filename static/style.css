@@ -1,13 +1,56 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 0 16px;
-    color: #333;
+    margin: 0;
+    color: #222;
+    background: #fff;
+    line-height: 1.5;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 48px;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    text-decoration: none;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #444;
+}
+
+nav a[aria-current="page"] {
+    color: #222;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sim-note {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8px 16px;
+    color: #666;
+    font-size: 14px;
 }
 
 h1 {
-    margin-bottom: 4px;
+    margin: 16px 0 4px;
+    font-size: 28px;
 }
 
 h2 {
@@ -16,7 +59,7 @@ h2 {
 }
 
 .note {
-    color: #777;
+    color: #666;
     font-size: 14px;
 }
 
@@ -28,7 +71,7 @@ h2 {
 
 .label {
     margin: 0;
-    color: #777;
+    color: #666;
 }
 
 .value {
@@ -61,6 +104,6 @@ table {
 th,
 td {
     text-align: left;
-    padding: 6px 0;
+    padding: 6px 8px 6px 0;
     border-bottom: 1px solid #eee;
 }
