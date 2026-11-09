@@ -1,0 +1,10 @@
+{% macro icon(name) -%}
+{% set paths = {
+    'home': 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z',
+    'activity': 'M3 3v18h18M6 14l4-5 4 3 6-7',
+    'settings': 'M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6',
+    'profile': 'M20 21v-2a6 6 0 0 0-6-6h-4a6 6 0 0 0-6 6v2M16 6a4 4 0 1 1-8 0 4 4 0 0 1 8 0',
+    'water': 'M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12Z'
+} %}
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ paths[name] }}"/></svg>
+{%- endmacro %}

@@ -55,9 +55,23 @@ main {
     text-decoration: none;
 }
 
+nav {
+    display: flex;
+    gap: 20px;
+}
+
 nav a {
-    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: var(--muted);
+    text-decoration: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 nav a[aria-current="page"] {
