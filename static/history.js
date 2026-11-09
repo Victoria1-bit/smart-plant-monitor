@@ -24,7 +24,8 @@ async function loadHistory() {
     const message = document.getElementById("page-message");
     try {
         levels = await callApi("/api/settings");
-        readings = await callApi("/api/readings?hours=168");
+        const hours = document.getElementById("range").value;
+        readings = await callApi(`/api/readings?hours=${hours}`);
         drawChart();
         showTable(readings);
         showMessage(message, "");
@@ -32,6 +33,8 @@ async function loadHistory() {
         showMessage(message, error.message, true);
     }
 }
+
+document.getElementById("range").addEventListener("change", loadHistory);
 
 loadHistory();
 redrawOnResize(drawChart);
