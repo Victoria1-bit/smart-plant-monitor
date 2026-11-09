@@ -69,10 +69,18 @@ def latest_reading():
     return readings[0]
 
 
+def low_moisture_light(moisture):
+    # The light comes on when the soil is dry. SIMULATED: the page shows
+    # what the light should be doing, as no real light is connected yet.
+    return "On" if moisture < settings["dry_threshold"] else "Off"
+
+
 @app.get("/api/status")
 def get_status_summary():
+    reading = latest_reading()
     return {
-        "reading": latest_reading(),
+        "reading": reading,
+        "light": low_moisture_light(reading["moisture"]),
         "sensor_connected": False,
         "settings": settings,
     }
