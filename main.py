@@ -162,3 +162,9 @@ def water_now(request: WaterRequest):
 @app.get("/api/watering")
 def get_watering():
     return watering_events
+
+
+@app.post("/api/login")
+def login():
+    # The login form is ready but real accounts are not built yet
+    raise HTTPException(501, "Sign in is not connected yet. Accounts will be added with the database.")
