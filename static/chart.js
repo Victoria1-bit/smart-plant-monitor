@@ -85,6 +85,47 @@ function drawMoistureChart(container, readings, dryLevel, wetLevel) {
         "text-anchor": "end",
         class: "latest-label",
     }, svg).textContent = latest.moisture + "%";
+
+    addChartHover(container, svg, points, x, y, margin.top, height - margin.bottom);
+}
+
+// Show the exact value of the nearest reading under the pointer
+function addChartHover(container, svg, points, x, y, top, bottom) {
+    const crosshair = svgElement("line", { y1: top, y2: bottom, class: "crosshair", visibility: "hidden" }, svg);
+    const dot = svgElement("circle", { r: 5, class: "latest-point", visibility: "hidden" }, svg);
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.hidden = true;
+    container.appendChild(tooltip);
+
+    svg.addEventListener("pointermove", (event) => {
+        const pointerX = event.clientX - svg.getBoundingClientRect().left;
+        let nearest = points[0];
+        for (const point of points) {
+            if (Math.abs(x(point.time) - pointerX) < Math.abs(x(nearest.time) - pointerX)) {
+                nearest = point;
+            }
+        }
+
+        const nearestX = x(nearest.time);
+        crosshair.setAttribute("x1", nearestX);
+        crosshair.setAttribute("x2", nearestX);
+        crosshair.setAttribute("visibility", "visible");
+        dot.setAttribute("cx", nearestX);
+        dot.setAttribute("cy", y(nearest.moisture));
+        dot.setAttribute("visibility", "visible");
+
+        tooltip.textContent = `${formatDateTime(nearest.time)}: ${nearest.moisture}% (${nearest.status})`;
+        tooltip.hidden = false;
+        const left = Math.min(nearestX + 10, container.clientWidth - tooltip.offsetWidth);
+        tooltip.style.left = Math.max(0, left) + "px";
+    });
+
+    svg.addEventListener("pointerleave", () => {
+        crosshair.setAttribute("visibility", "hidden");
+        dot.setAttribute("visibility", "hidden");
+        tooltip.hidden = true;
+    });
 }
 
 // Draw the chart again when the window changes size

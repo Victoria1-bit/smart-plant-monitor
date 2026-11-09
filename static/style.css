@@ -166,3 +166,18 @@ td {
     font-size: 13px;
     font-weight: bold;
 }
+
+.crosshair {
+    stroke: #999;
+}
+
+.tooltip {
+    position: absolute;
+    top: 0;
+    padding: 4px 8px;
+    background: #222;
+    color: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+    pointer-events: none;
+}
