@@ -18,7 +18,7 @@ MAX_READINGS = 1000
 READING_INTERVAL = 60   # seconds between simulated readings
 
 # Readings are kept in lists for now, newest first. This will be a database later.
-readings, watering_events = build_history()
+readings = build_history()
 
 settings = {
     "dry_threshold": 30,
@@ -103,11 +103,6 @@ def update_settings(new_settings: Settings):
     return settings
 
 
-@app.get("/api/watering")
-def get_watering():
-    return watering_events
-
-
 @app.post("/api/login")
 def login():
     # The login form is ready but real accounts are not built yet
@@ -117,11 +112,6 @@ def login():
 @app.get("/history", include_in_schema=False)
 def history_page(request: Request):
     return templates.TemplateResponse(request, "history.html", {"active": "history"})
-
-
-@app.get("/watering", include_in_schema=False)
-def watering_page(request: Request):
-    return templates.TemplateResponse(request, "watering.html", {"active": "watering"})
 
 
 @app.get("/settings", include_in_schema=False)

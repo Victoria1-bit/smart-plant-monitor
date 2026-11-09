@@ -1,17 +1,17 @@
 # Simulated soil moisture data.
 #
 # There is no real sensor connected yet. This file makes believable
-# readings so the web pages have something to show. Every reading and
-# watering event is marked as simulated. Delete this file when real
-# readings arrive over MQTT.
+# readings so the web pages have something to show. Every reading is
+# marked as simulated. Delete this file when real readings arrive over
+# MQTT.
 
 import random
 from datetime import datetime, timedelta
 
 from sensor import get_status
 
-WATER_BELOW = 27      # the simulated plant gets watered below this level
-WATERED_LEVEL = 68    # and goes back up to this level
+WATER_BELOW = 27      # someone waters the simulated plant by hand below this level
+WATERED_LEVEL = 68    # and it goes back up to this level
 
 
 def make_reading(moisture, when=None, dry_threshold=30, wet_threshold=70):
@@ -36,23 +36,14 @@ def build_history(days=7):
     now = datetime.now()
     moisture = 60
     readings = []
-    events = []
 
     for hours_ago in range(days * 24, 0, -1):
         when = now - timedelta(hours=hours_ago)
         moisture -= random.randint(0, 1)
 
         if moisture < WATER_BELOW:
-            events.insert(0, {
-                "timestamp": when.isoformat(timespec="seconds"),
-                "trigger": "Automatic",
-                "seconds": 5,
-                "before": moisture,
-                "after": WATERED_LEVEL,
-                "simulated": True,
-            })
             moisture = WATERED_LEVEL
 
         readings.insert(0, make_reading(moisture, when))
 
-    return readings, events
+    return readings
