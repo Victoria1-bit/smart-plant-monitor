@@ -16,7 +16,11 @@
             <a href="/" {% if active == "dashboard" %}aria-current="page"{% endif %}>{{ icon("home") }}<span>Dashboard</span></a>
             <a href="/history" {% if active == "history" %}aria-current="page"{% endif %}>{{ icon("activity") }}<span>History</span></a>
             <a href="/settings" {% if active == "settings" %}aria-current="page"{% endif %}>{{ icon("settings") }}<span>Settings</span></a>
+            {% if user %}
+            <a href="/login" id="logout-link">{{ icon("profile") }}<span>Sign out</span></a>
+            {% else %}
             <a href="/login" {% if active == "login" %}aria-current="page"{% endif %}>{{ icon("profile") }}<span>Sign in</span></a>
+            {% endif %}
         </nav>
     </header>
 

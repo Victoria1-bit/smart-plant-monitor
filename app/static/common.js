@@ -9,6 +9,14 @@ async function callApi(url, options) {
     }
 
     const data = await response.json().catch(() => null);
+
+    // Signed out (or the session ran out): go to the sign in page
+    const onSignInPage = ["/login", "/register"].includes(window.location.pathname);
+    if (response.status === 401 && !onSignInPage) {
+        window.location.href = "/login";
+        throw new Error("Please sign in.");
+    }
+
     if (!response.ok) {
         // FastAPI puts the reason in "detail"
         const reason = data && typeof data.detail === "string" ? data.detail : "Please check the values and try again.";
@@ -49,4 +57,17 @@ function addCell(row, text, className) {
 
 function statusClass(status) {
     return "status " + status.toLowerCase();
+}
+
+// The "Sign out" link is only on the page when someone is signed in
+const logoutLink = document.getElementById("logout-link");
+if (logoutLink) {
+    logoutLink.addEventListener("click", async (event) => {
+        event.preventDefault();
+        try {
+            await sendJson("/api/auth/logout", "POST", {});
+        } finally {
+            window.location.href = "/login";
+        }
+    });
 }
