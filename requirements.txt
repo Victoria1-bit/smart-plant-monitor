@@ -1,2 +1,5 @@
 fastapi[standard]==0.146.0
+SQLAlchemy>=2.0,<3.0
+pydantic-settings>=2.0,<3.0
+PyMySQL>=1.1,<2.0
 paho-mqtt==2.1.0
