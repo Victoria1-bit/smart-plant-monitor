@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Create account{% endblock %}
+
+{% block content %}
+    <h1>Create account</h1>
+    <p class="note">Already have an account? <a href="/login">Sign in</a>.</p>
+
+    <form id="register-form" class="form">
+        <label for="name">Name</label>
+        <input id="name" type="text" autocomplete="name" maxlength="100" required>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required>
+
+        <label for="password">Password (at least 8 characters)</label>
+        <input id="password" type="password" autocomplete="new-password" minlength="8" required>
+
+        <button type="submit">Create account</button>
+    </form>
+    <p class="message" id="register-message" role="status"></p>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', path='register.js') }}"></script>
+{% endblock %}
