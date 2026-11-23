@@ -5,6 +5,15 @@
 CREATE DATABASE IF NOT EXISTS plantmonitor CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE plantmonitor;
 
+CREATE TABLE IF NOT EXISTS `user` (
+    `userID` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(255) NOT NULL,
+    `passwordHash` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`userID`),
+    CONSTRAINT `uq_user_email` UNIQUE (`email`)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS `reading` (
     `readingID` INT NOT NULL AUTO_INCREMENT,
     `moisture` INT NOT NULL,

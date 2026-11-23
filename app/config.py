@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,6 +10,9 @@ class Settings(BaseSettings):
     environment: str = "development"
 
     database_url: str
+
+    secret_key: SecretStr
+    session_https_only: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",
