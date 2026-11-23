@@ -1,8 +1,11 @@
 # Each test gets its own empty database in a temporary folder.
 
+import os
 import sys
 
 import pytest
+
+os.environ["SECRET_KEY"] = "test-secret-key-that-is-long-enough-for-tests"
 
 
 @pytest.fixture
@@ -18,3 +21,11 @@ def client(tmp_path, monkeypatch):
 
     with TestClient(app) as test_client:
         yield test_client
+
+
+@pytest.fixture
+def signed_in(client):
+    client.post("/api/auth/register", json={
+        "name": "Test User", "email": "test@example.com", "password": "password123",
+    })
+    return client
