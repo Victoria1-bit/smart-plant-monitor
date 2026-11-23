@@ -1,6 +1,6 @@
 # System Architecture
 
-The FastAPI app and database are working so far, using simulated readings.
+The FastAPI app, database and sign in are working so far, using simulated readings.
 The rest is planned.
 
 ```mermaid
@@ -41,8 +41,8 @@ Soil sensor -> MCP3008 -> Raspberry Pi 5 -> MOSFET -> Pump
 | Sensor and MCP3008 | Measure soil moisture | Planned (`hardware/sensor.py`, not tested) |
 | MOSFET and pump | Water the plant | Planned (`hardware/pump.py`, not tested) |
 | MQTT broker | Send messages between the Pi and the app | Planned (`app/mqtt_service.py`, not tested) |
-| FastAPI app | API and dashboard | Working with simulated data |
-| Database | Store readings and settings | Working (SQLite locally, MySQL planned on AWS) |
+| FastAPI app | API, dashboard and sign in | Working with simulated data |
+| Database | Store readings, settings and accounts | Working (SQLite locally, MySQL planned on AWS) |
 | AWS and HTTPS domain | Host the app online | Planned |
 
 The pump will only be controllable after a login is added.

@@ -41,15 +41,16 @@ app/
   config.py          Settings read from .env
   database.py        Database connection
   models/            Tables: user, reading, setting
-  routers/           Pages, readings and settings routes
-  services/          Readings (with the simulator)
+  routers/           Pages, readings, settings and sign in routes
+  services/          Readings (with the simulator) and passwords
   mqtt_service.py    MQTT publish and subscribe (not tested)
+  create_dev_user.py Makes one account for local use
   templates/         One HTML page each, sharing base.html
   static/            Stylesheet, font, and one JavaScript file per page
 hardware/
   sensor.py          Sensor reading for the Pi (not tested)
   pump.py            Left from the earlier watering design (not used)
-tests/               Database tests
+tests/               Database and sign in tests
 database_setup.sql   Tables for MySQL
 docs/                Architecture and hardware
 ```
@@ -65,8 +66,9 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-`DATABASE_URL` in `.env` is set to a SQLite file, which needs nothing
-else installed. For MySQL, use the second example in the file.
+Open `.env` and set `SECRET_KEY` to a long random value. The file shows
+how to make one. `DATABASE_URL` is set to a SQLite file, which needs
+nothing else installed. For MySQL, use the second example in the file.
 
 Then:
 
@@ -75,8 +77,8 @@ source .venv/bin/activate
 fastapi dev app/main.py
 ```
 
-Open http://127.0.0.1:8000 for the dashboard and http://127.0.0.1:8000/docs
-for the API.
+Open http://127.0.0.1:8000, create an account and sign in.
+The API is listed at http://127.0.0.1:8000/docs.
 
 To run the tests:
 
@@ -92,25 +94,34 @@ python -m pytest tests
 | `/` | Current moisture, low moisture light and a 24 hour chart |
 | `/history` | Chart and table by time range and status, with a CSV download |
 | `/settings` | Dry and wet levels. The light comes on below the dry level |
-| `/login` | Sign in form. Accounts are not connected yet |
+| `/login` | Sign in |
+| `/register` | Create an account |
+
+The first three pages send you to `/login` until you sign in.
 
 ## API
 
 | Route | What it does |
 |---|---|
+| `POST /api/auth/register` | Create an account and sign in |
+| `POST /api/auth/login` | Sign in |
+| `POST /api/auth/logout` | Sign out |
+| `GET /api/auth/me` | The signed-in user |
 | `GET /api/status` | Latest reading, light state and settings |
 | `GET /api/reading` | Takes a new reading, saves it and returns it |
 | `GET /api/readings` | Latest readings, or `?hours=24` for a time range |
 | `GET`, `PUT /api/settings` | Read or change the settings |
-| `POST /api/login` | Returns 501 until accounts exist |
+
+Every route except register and login needs a signed-in user.
 
 ## Database
 
-Readings and settings are saved in a database, so they are still there
-after the app restarts.
+Readings, settings and accounts are saved in a database, so they are
+still there after the app restarts.
 
 | Table | What it holds |
 |---|---|
+| `user` | Name, email and password hash (Argon2). Passwords are never stored |
 | `reading` | Moisture percentage, time, and whether it was simulated |
 | `setting` | One row with the dry and wet levels |
 
@@ -128,16 +139,16 @@ icon style and bottom navigation on phones. The folders follow MyControl too.
 ## Progress
 
 Done:
-- FastAPI app and web pages: dashboard, history, settings and sign in form
-- Database for readings and settings
+- FastAPI app and web pages: dashboard, history, settings, sign in and create account
+- Database for readings, settings and accounts
+- Sign in, sign out and accounts with hashed passwords
 - Simulated readings, labelled as simulated
 - Dry, normal and wet status
-- Tests for the database
+- Tests for the database and sign in
 - Hardware list, wiring plan and architecture diagram
 
 Not done yet:
 - Fritzing diagram
 - Testing the sensor and light on the Pi
 - MQTT broker
-- Login
 - AWS deployment
