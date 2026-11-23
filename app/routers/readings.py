@@ -3,10 +3,12 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.services import readings as reading_service
+from app.services.auth import require_user
 
 router = APIRouter(
     prefix="/api",
     tags=["readings"],
+    dependencies=[Depends(require_user)],   # every route here needs a signed-in user
 )
 
 

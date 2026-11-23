@@ -3,11 +3,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.services.auth import require_user
 from app.services.readings import get_levels
 
 router = APIRouter(
     prefix="/api/settings",
     tags=["settings"],
+    dependencies=[Depends(require_user)],
 )
 
 
